@@ -1,11 +1,16 @@
 let pontinho;
-const WIDTH = 768;
-const HEIGHT = 768;
+
+const WIDTH = 800;
+const HEIGHT = 800;
+
+// Coordenadas da origem
 const oX = WIDTH/2;
 const oY = HEIGHT/2;
 
 function setup() {
+  // Definir frame rate
   frameRate(60);
+  
   // Modo de tratar ângulos será em graus;
   angleMode(DEGREES);
   
@@ -36,56 +41,51 @@ class Ponto {
     this.raio = -20;
     this.angulo = 0;
     this.const = 1;
+    this.tag = -1;
     this.cont = 0;
   }
   nextFrame(){
-    if(this.angulo % 180 == 0 && this.cont == 3){
-      this.cont++; 
+    
+    /* A cada meia volta no eixo:
+    /    - Soma o inverso Raio ao desvio do eixo
+    /    - Inverte a variável Tag para poder inverter a soma
+    /    - Dobra o raio
+    */
+    if(this.angulo != 0 && this.angulo % 180 == 0){
+      this.cont += (-this.tag*this.raio);
+      this.tag *= -1;
+      this.raio *= 2;
     }
-    if(this.angulo % 180 == 0 && this.angulo != 0){
-      this.cont++;
+    
+    /* A cada volta completa no eixo:
+    /    - Zera o ângulo para facilitar operações.
+    */
+    if(this.angulo != 0 && this.angulo % 360 == 0){
+      this.angulo = 0;
     }
-    if(this.cont == 0){
-      push();
-      translate(oX, oY);
-      rotate(-this.angulo);
-      point(this.raio, 0);
-      this.angulo+=this.const;
-      pop();
-    }
-    if(this.cont == 1){
-      push();
-      translate(oX - 20, oY);
-      rotate(-this.angulo);
-      point(this.raio*2, 0);
-      this.angulo+=this.const;
-      pop();
-    }
-    if(this.cont == 2){
-      push();
-      translate(oX + 20, oY);
-      rotate(this.angulo);
-      point(this.raio*4, 0);
-      this.angulo-=this.const;
-      pop();
-    }
-    if(this.cont == 3){
-      push()
-      translate(oX - 60, oY);
-      rotate(this.angulo);
-      point(this.raio*8, 0);
-      this.angulo-=this.const;
-      pop();
-    }
-    if(this.cont == 4){
-      push();
-      translate(oX + 100, oY);
-      rotate(this.angulo);
-      point(this.raio*16, 0);
-      this.angulo-=0.5;
-      pop();
-    }
+
+    push();
+    /* Adiciona o desvio para a origem estar no centro
+    /  do canvas
+    */ 
+    translate(oX + this.cont, oY);
+    
+    /* Rotaciona o canvas na direção negativa, para a
+    /  rotação ir no sentido anti-horário
+    */
+    rotate(-this.angulo);
+    
+    // Desenha o ponto considerando o desvio da espiral
+    point(this.raio, 0);
+    
+    // Adiciona um valor pequeno ao ângulo para rotacionar
+    this.angulo+=this.const;
+    
+    pop();
   }
+    /* Função que desenha as linhas do eixo, para ficarem
+    /  por cima da espiral.
+    */
     linhas(){
       stroke(10, 10, 250);
       line(0, HEIGHT/2, WIDTH, HEIGHT/2);
