@@ -1,6 +1,6 @@
 let pontinho;
-const WIDTH = 500;
-const HEIGHT = 500;
+const WIDTH = 768;
+const HEIGHT = 768;
 const oX = WIDTH/2;
 const oY = HEIGHT/2;
 
@@ -36,35 +36,54 @@ class Ponto {
     this.raio = -20;
     this.angulo = 0;
     this.const = 1;
+    this.cont = 0;
   }
   nextFrame(){
-    if(this.angulo < 180){
+    if(this.angulo % 180 == 0 && this.cont == 3){
+      this.cont++; 
+    }
+    if(this.angulo % 180 == 0 && this.angulo != 0){
+      this.cont++;
+    }
+    if(this.cont == 0){
       push();
       translate(oX, oY);
       rotate(-this.angulo);
       point(this.raio, 0);
-      this.angulo+=0.5;
+      this.angulo+=this.const;
       pop();
     }
-    if(this.angulo < 180){
+    if(this.cont == 1){
       push();
       translate(oX - 20, oY);
       rotate(-this.angulo);
-      point(-this.raio*2, 0);
-      this.angulo+=0.5;
+      point(this.raio*2, 0);
+      this.angulo+=this.const;
       pop();
     }
-    if(this.angulo < 180){
+    if(this.cont == 2){
       push();
       translate(oX + 20, oY);
-      rotate(-this.angulo);
+      rotate(this.angulo);
       point(this.raio*4, 0);
-      this.angulo-=0.5;
+      this.angulo-=this.const;
       pop();
     }
-    if(this.angulo < 180){
+    if(this.cont == 3){
+      push()
+      translate(oX - 60, oY);
+      rotate(this.angulo);
+      point(this.raio*8, 0);
+      this.angulo-=this.const;
+      pop();
+    }
+    if(this.cont == 4){
       push();
-      
+      translate(oX + 100, oY);
+      rotate(this.angulo);
+      point(this.raio*16, 0);
+      this.angulo-=0.5;
+      pop();
     }
   }
     linhas(){
