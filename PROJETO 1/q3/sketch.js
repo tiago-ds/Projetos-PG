@@ -5,7 +5,9 @@ const oX = WIDTH/2;
 const oY = HEIGHT/2;
 
 function setup() {
-  frameRate(300);
+  frameRate(60);
+  // Modo de tratar ângulos será em graus;
+  angleMode(DEGREES);
   
   // Cria canvas
   createCanvas(WIDTH, HEIGHT);
@@ -17,42 +19,38 @@ function setup() {
   stroke(10, 250, 10);
   line(WIDTH/2, 0, WIDTH/2, HEIGHT);
   
-  /* Move os eixos para o centro
-  /  de forma a deixar as coordenadas
-  /  mais intuitivas
-  */
-  //translate(WIDTH/2, HEIGHT/2);
-  
   // Cria o ponto de início
   pontinho = new Ponto(WIDTH/2 - 20, HEIGHT/2);
 }
 
 function draw() {
-  //translate(WIDTH/2, HEIGHT/2);
   stroke(250, 10, 10);
   strokeWeight(5);
-  pontinho.display();
-  pontinho.update();
+  pontinho.nextFrame();
 }
 
 class Ponto {
-  constructor(x, y) {
-    this.posicao = new createVector(x, y);
-    this.angulo = 0.1;
-    this.rotacao = 10;
-    this.giro = 0.5;
-    this.grow = this.giro*5;
+  constructor() {
+    this.raio = -20;
+    this.angulo = 0;
+    this.const = -0.111111;
   }
-  update(){
-    this.angulo+=this.giro;
-    this.rotacao += this.grow;
-    this.posicao.x = oX + cos(this.angulo)*this.rotacao;
-    this.posicao.y = oY -sin(this.angulo)*this.rotacao;
-    if(frameCount%50 == 0){
-      this.angulo*=2;
+  nextFrame(){
+    push();
+    translate(oX, oY);
+    rotate(-this.angulo);
+    point(this.raio, 0);
+    this.angulo+=0.5;
+    console.log(this.angulo);
+    if(this.angulo > 180){
+      this.raio-=0.1111; 
     }
-  }
-  display(){
-    point(this.posicao.x, this.posicao.y);
+    if(this.angulo > 360){
+      this.raio-=0.1111; 
+    }
+    if(this.angulo > 540){
+      this.raio-=0.1111; 
+    }
+    pop();
   }
 }
