@@ -1,3 +1,15 @@
+/*  Explicação da questão: 
+/   Nessa questão, a chave foi entender o padrão de
+/   crescimento no "raio" da semi circuferência.
+/   A partir do momento que é entendido que o centro
+/   de rotação da próxima volta é o ponto de 
+/   interseção do arco com o eixo X, a questão fica
+/   bem simples. Basicamente, a cada meia volta ao 
+/   redor do eixo, o raio é dobrado e o centro de 
+/   rotação é transladado para o centro do próximo 
+/   arco.
+*/
+
 let pontinho;
 
 const WIDTH = 800;
@@ -25,7 +37,7 @@ function setup() {
   line(WIDTH/2, 0, WIDTH/2, HEIGHT);
   
   // Cria o ponto de início
-  pontinho = new Ponto(WIDTH/2 - 20, HEIGHT/2);
+  pontinho = new Ponto();
 }
 
 function draw() {
@@ -52,6 +64,11 @@ class Ponto {
     /    - Dobra o raio
     */
     if(this.angulo != 0 && this.angulo % 180 == 0){
+      
+    /* A tag inicializa como -1 para que a primeira soma seja
+    /  -20, e não 20, que seria o resultado caso a tag fosse 
+    /  inicializada com 1;
+    */
       this.cont += (-this.tag*this.raio);
       this.tag *= -1;
       this.raio *= 2;
