@@ -30,12 +30,6 @@ function setup() {
   createCanvas(WIDTH, HEIGHT);
   background(100);
   
-  // OX e OY
-  stroke(10, 10, 250);
-  line(0, HEIGHT/2, WIDTH, HEIGHT/2);
-  stroke(10, 250, 10);
-  line(WIDTH/2, 0, WIDTH/2, HEIGHT);
-  
   // Cria o ponto de início
   pontinho = new Ponto();
 }
@@ -59,7 +53,7 @@ class Ponto {
   nextFrame(){
     
     /* A cada meia volta no eixo:
-    /    - Soma o inverso Raio ao desvio do eixo
+    /    - Soma o inverso do Raio ao desvio do eixo
     /    - Inverte a variável Tag para poder inverter a soma
     /    - Dobra o raio
     */
@@ -82,8 +76,9 @@ class Ponto {
     }
 
     push();
+
     /* Adiciona o desvio para a origem estar no centro
-    /  do canvas
+    /  de rotação
     */ 
     translate(oX + this.cont, oY);
     

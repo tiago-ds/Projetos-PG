@@ -1,15 +1,15 @@
 let bracinho;
-let WIDTH = 500;
-let HEIGHT = 500;
+let WIDTH = 800;
+let HEIGHT = 800;
 let startDate = new Date();
-let ok = false;
+let finished = false;
 
 function setup() {
   // Cria o canvas e o objeto do Braço
   createCanvas(WIDTH, HEIGHT);
-  bracinho = new Braco(15);
+  bracinho = new Braco(30);
   angleMode(DEGREES);
-  frameRate(55);
+  frameRate(45);
 }
 
 function draw() {
@@ -23,28 +23,43 @@ class Braco{
     this.braco = new createVector(0, 2*UC); 
     this.antebraco = new createVector(0, 3*UC);
     this.angulo = 0;
-    this.const = -0.5;
+    this.const = -0.75;
   }
   
   update(){
-    if(this.angulo > -45){
-      this.angulo+=this.const;
-    }else{
-      if(!ok){
-        console.log(`TIME: ${new Date() - startDate}`);
-        ok = true;
-      }
-      
-    }
+    
+    /* Condição para medir o tempo inicial da 
+    /  animação 
+    */
     if (frameCount == 0) {
       startDate = new Date();
     }
+    
+    
+    /* Condição que define quando a rotação
+    /  vai parar
+    */
+    if(this.angulo > -45){
+      this.angulo+=this.const;
+    }
+    
+    /* Condição para o tempo só ser imprimido
+    /  uma vez
+    */
+    else if(!finished){
+        console.log(`TIME: ${new Date() - startDate}`);
+        finished = true;
+    }
+    
+    /* "Sobe um nível" na operação de matrizes
+    /
+    */
     push();
     // Transfere o centro de rotação para
     // o meio do canvas.
     translate(WIDTH/2, 2*HEIGHT/6);
     
-    // Rotaciona 
+    // Rotaciona o canvas em -0,75 grau
     rotate(this.angulo);
     
     // Linha do braço
