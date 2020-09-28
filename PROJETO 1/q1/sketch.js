@@ -1,6 +1,7 @@
 let bolinha; 
-const WIDTH = 800;
-const HEIGHT = 800;
+const WIDTH = 1000;
+const HEIGHT = 1000;
+//let startDate = new Date();
 
 function setup() {
   createCanvas(WIDTH, HEIGHT);
@@ -25,6 +26,7 @@ class Ball {
     this.posicao.add(this.velocidade);
     if((this.posicao.x + this.raio) > WIDTH ||
       this.posicao.x == this.raio){
+//    console.log(`DATE: ${new Date() - startDate}`);
       this.velocidade.x *= -1;
     }
     if((this.posicao.y + this.raio) > HEIGHT/2){
@@ -35,6 +37,9 @@ class Ball {
     
   }
   display() {
+//  if (frameCount == 0) {
+//     startDate = new Date().getMilliseconds();
+//  }
     fill(250, 0, 0);
     rect(0, HEIGHT/2, WIDTH, HEIGHT)
     fill(0, 0, 250);
