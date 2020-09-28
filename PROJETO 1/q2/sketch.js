@@ -10,7 +10,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(25, 70, 180);
   bracinho.update();
 }
 
@@ -45,14 +45,30 @@ class Braco{
       // Transfere o centro de rotação para
       // o meio do canvas.
       translate(WIDTH/2, HEIGHT/2);
-      rotate(-this.angulo * 1);
+      rotate(-this.angulo);
+      
       // linha do braço
+      strokeWeight(2);
+      stroke(0);
       line(0, 0, 0, this.braco.y);
+      strokeWeight(8);
+      stroke(255);
+      point(0, 0);
+      
       // fim das operações para o braço
       push();
       translate(0, this.braco.y);
       rotate(-this.angulo * 2);
+      
+      strokeWeight(2);
+      stroke(0);
       line(0, 0, 0, this.antebraco.y);
+      
+      strokeWeight(8);
+      stroke(255);
+      point(0, 0);
+      point(0, this.antebraco.y);
+      
       this.angulo+=this.const;
       pop();
       pop();
@@ -61,11 +77,26 @@ class Braco{
       push()
       translate(WIDTH/2, HEIGHT/2);
       rotate(-this.angulo);
+      
+      strokeWeight(2);
+      stroke(0);
       line(0, 0, 0, this.braco.y);
+      strokeWeight(8);
+      stroke(255);
+      point(0, 0);
+      
       push();
       translate(0, this.braco.y);
       rotate(-this.angulo*2);
+      
+      strokeWeight(2);
+      stroke(0);
       line(0, 0, 0, this.antebraco.y);
+      strokeWeight(8);
+      stroke(255);
+      point(0, 0);
+      point(0, this.antebraco.y);
+      
       pop();
       pop();
       console.log(`DATE: ${new Date() - startDate}`);
