@@ -51,12 +51,14 @@ class Braco{
         finished = true;
     }
     
-    /* "Sobe um nível" na operação de matrizes
-    /
+    /* "Sobe um nível" na operação do canvas
+    /  para realizar operações matriciais
     */
     push();
-    // Transfere o centro de rotação para
-    // o meio do canvas.
+    
+    /* Transfere o centro de rotação para
+    /  o meio horiontal do canvas.
+    */
     translate(WIDTH/2, 2*HEIGHT/6);
     
     // Rotaciona o canvas em -0,75 grau
@@ -71,9 +73,17 @@ class Braco{
     strokeWeight(10);
     stroke(255);
     point(0, 0);
+    // Fim das operações para o braço
     
-    // Fim das operações pro braço
+    /* "Sobe" mais um nível, para preservar
+    /  as operações realizadas no nível 
+    /  anterior
+    */ 
     push();
+    
+    /* Move o centro de rotação para o 
+    /  início do antebraço
+    */ 
     translate(0, this.braco.y);
     rotate(this.angulo);
     
@@ -87,7 +97,11 @@ class Braco{
     stroke(255);
     point(0, 0);
     point(0, this.antebraco.y);
+    // Fim das operações para o antebraço
     
+    /* "Desce" o nível subido nos push()
+    /  anteriores
+    */
     pop();
     pop();
   }
