@@ -1,3 +1,5 @@
+let startDate = new Date();
+
 /*  Explicação da questão: 
 /   Nessa questão, a chave foi entender o padrão de
 /   crescimento no "raio" da semi circuferência.
@@ -35,6 +37,9 @@ function setup() {
 }
 
 function draw() {
+  if(frameCount == 0){
+    startDate = new Date();
+  }
   stroke(250, 10, 10);
   strokeWeight(5);
   pontinho.nextFrame();
@@ -46,7 +51,7 @@ class Ponto {
   constructor() {
     this.raio = -20;
     this.angulo = 0;
-    this.const = 1;
+    this.const = 0.75;
     this.tag = -1;
     this.cont = 0;
   }
@@ -58,7 +63,7 @@ class Ponto {
     /    - Dobra o raio
     */
     if(this.angulo != 0 && this.angulo % 180 == 0){
-      
+      console.log(`Time : ${new Date() - startDate}`);
     /* A tag inicializa como -1 para que a primeira soma seja
     /  -20, e não 20, que seria o resultado caso a tag fosse 
     /  inicializada com 1;
