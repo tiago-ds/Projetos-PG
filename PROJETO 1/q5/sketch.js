@@ -29,41 +29,39 @@ function setup() {
 
   pop();
   
-  push();
   
-  /* Alinha o eixo de desenho
-  /  com os eixos já desenhados
-  */ 
-  rotateX(-30);
-  rotateY(-30);
-
-  /* Rotaciona o eixo para alinhar
-  /  o desenho do círculo e do 
-  /  quadrado
-  */ 
-  rotateY(-30);
-  rotateX(240);
-
-  // Desenha o círculo e o quadrado
-  noFill();
-  strokeWeight(5);
-  rect(0,0,200);
-  //fill(255);
-  circle(100, 100, 200);
-  point(100, 100);
-  
-  stroke('yellow');
-  translate(100, 100);
-  rotateX(-60);
-  line(0, 0, 0, 100, 100, -100);
-  pop();
-
-  push();
-  rotateX(-30);
-  rotateY(-30);
-  translate(0, 100, 0);
 }
 
 function draw() {
-  
+
+  push();
+  /* Alinha o eixo de desenho
+  /  com os eixos já desenhados
+  */ 
+ rotateX(-30);
+ rotateY(-30);
+
+ /* Rotaciona o eixo para alinhar
+ /  o desenho do círculo e do 
+ /  quadrado
+ */ 
+ rotateY(-30);
+ rotateX(240);
+
+ // Desenha o círculo e o quadrado
+ noFill();
+ strokeWeight(5);
+ rect(0,0,200);
+ fill(255);
+ circle(100, 100, 200);
+ point(100, 100);
+ 
+ stroke('red');
+ translate(100, 100);
+ rotateX(-90);
+ point(0, 0, 0);
+ line(0,0,0, 0, 100, 0);
+
+ pop();
+ 
 }
