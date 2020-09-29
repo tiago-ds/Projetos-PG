@@ -1,6 +1,6 @@
 // GUIA: 
 
-
+let angle = 0;
 function setup() {
   createCanvas(1000, 1000, WEBGL);
   angleMode(DEGREES);
@@ -39,29 +39,35 @@ function draw() {
   /  com os eixos já desenhados
   */ 
  rotateX(-30);
- rotateY(-30);
+ rotateY(30);
 
  /* Rotaciona o eixo para alinhar
  /  o desenho do círculo e do 
  /  quadrado
  */ 
- rotateY(-30);
- rotateX(240);
+rotateY(-90);
+rotateX(240);
 
  // Desenha o círculo e o quadrado
- noFill();
- strokeWeight(5);
- rect(0,0,200);
- fill(255);
- circle(100, 100, 200);
- point(100, 100);
- 
- stroke('red');
- translate(100, 100);
- rotateX(-90);
- point(0, 0, 0);
- line(0,0,0, 0, 100, 0);
+noFill();
+strokeWeight(5);
+rect(0,0,200);
+//fill(255);
+circle(100, 100, 200);
+point(100, 100);
+  
+stroke('red');
+translate(100, 100);
 
- pop();
- 
+// deixa o eixo de rotação 2d perpendicular
+// ao plano
+//point(0, 0, 0);
+rotateZ(angle);
+line(0,0,0, 0, -100, 0);
+
+//circle(0, 0 , 0, 25);
+
+pop();
+
+angle -= 3;
 }
