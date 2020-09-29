@@ -106,3 +106,10 @@ class Braco{
     pop();
   }
 }
+
+function mouseClicked(event){
+  console.log(event);
+  bracinho.angulo = 0;
+  finished = false;
+  startDate = new Date();
+}
