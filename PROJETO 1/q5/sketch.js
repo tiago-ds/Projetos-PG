@@ -45,7 +45,7 @@ function draw() {
 
   //circle(0, 0 , 0, 25);
   translate(0, -100, -25);
-  strokeWeight(8);
+  strokeWeight(10);
   stroke('red');
   rotateX(90);
   rotateZ(-angle*2);
