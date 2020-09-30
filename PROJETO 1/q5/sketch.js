@@ -97,7 +97,7 @@ function draw() {
   // Desenha o círculo
   stroke(0);
   strokeWeight(5);
-  noFill();
+  //noFill();
   circle(0, 0, 2*lRaio);
 
   // Desenha o ponto no círculo
@@ -109,7 +109,9 @@ function draw() {
   /* Constante de velocidade da rotação.
   /  Para mudar a velocidade, basta mudar
   /  a constante que subtrai o valor do 
-  /  ângulo.
+  /  ângulo.(Não foi especificada uma 
+  /  velocidade, então colocamos a que 
+  /  achamos próxima ao da especificação)
   */
   angle += 1.75;
 }
