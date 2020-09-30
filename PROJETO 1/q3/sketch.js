@@ -1,5 +1,3 @@
-let startDate = new Date();
-
 /*  Explicação da questão: 
 /   Nessa questão, a chave foi entender o padrão de
 /   crescimento no "raio" da semi circuferência.
@@ -12,8 +10,12 @@ let startDate = new Date();
 /   arco.
 */
 
+// Testa o tempo de execução da animação
+//let startDate = new Date();
+
 let pontinho;
 
+const FRAMERATE = 60;
 const WIDTH = 800;
 const HEIGHT = 800;
 
@@ -23,7 +25,7 @@ const oY = HEIGHT/2;
 
 function setup() {
   // Definir frame rate
-  frameRate(60);
+  frameRate(FRAMERATE);
   
   // Modo de tratar ângulos será em graus;
   angleMode(DEGREES);
@@ -40,22 +42,34 @@ function draw() {
   if(frameCount == 0){
     startDate = new Date();
   }
-  stroke(250, 10, 10);
-  strokeWeight(5);
-  pontinho.nextFrame();
-  strokeWeight(0.5);
-  pontinho.linhas();
+  pontinho.animate();
+  linhas();
 }
 
 class Ponto {
   constructor() {
+
+    // Enxergamos a rotação como um semicírculo
     this.raio = -20;
+
     this.angulo = 0;
-    this.const = 0.75;
+
+    /* A constante é o que será adicionado
+    /  ao valor de rotação. O valor é 45 pois
+    /  a cada 4 segundos a rotação deve ser 
+    /  de 180°, o que significa que a cada
+    /  1 segundo a rotação deve ser de 45°.
+    /  Dessa forma, divide-se pelo framerate
+    /  para que sempre sejam 4 segundos,
+    /  independente do sistema
+    */
+    this.const = 45 / FRAMERATE;
+
+    // Variáveis de auxílio
     this.tag = -1;
     this.cont = 0;
   }
-  nextFrame(){
+  animate(){
     
     /* A cada meia volta no eixo:
     /    - Soma o inverso do Raio ao desvio do eixo
@@ -63,8 +77,11 @@ class Ponto {
     /    - Dobra o raio
     */
     if(this.angulo != 0 && this.angulo % 180 == 0){
-      console.log(`Time : ${new Date() - startDate}`);
-    /* A tag inicializa como -1 para que a primeira soma seja
+    
+    //  Testa o tempo de execução da animação
+    //  console.log(`Time : ${new Date() - startDate}`);
+    
+      /* A tag inicializa como -1 para que a primeira soma seja
     /  -20, e não 20, que seria o resultado caso a tag fosse 
     /  inicializada com 1;
     */
@@ -93,6 +110,8 @@ class Ponto {
     rotate(-this.angulo);
     
     // Desenha o ponto considerando o desvio da espiral
+    stroke(250, 10, 10);
+    strokeWeight(5);
     point(this.raio, 0);
     
     // Adiciona um valor pequeno ao ângulo para rotacionar
@@ -100,13 +119,15 @@ class Ponto {
     
     pop();
   }
-    /* Função que desenha as linhas do eixo, para ficarem
-    /  por cima da espiral.
-    */
-    linhas(){
-      stroke(10, 10, 250);
-      line(0, HEIGHT/2, WIDTH, HEIGHT/2);
-      stroke(10, 250, 10);
-      line(WIDTH/2, 0, WIDTH/2, HEIGHT); 
-    }
+}
+
+/* Função que desenha as linhas do eixo, para ficarem
+/  por cima da espiral.
+*/
+function linhas(){
+  strokeWeight(0.5);
+  stroke(10, 10, 250);
+  line(0, HEIGHT/2, WIDTH, HEIGHT/2);
+  stroke(10, 250, 10);
+  line(WIDTH/2, 0, WIDTH/2, HEIGHT); 
 }
