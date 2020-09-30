@@ -1,7 +1,12 @@
 let bracinho;
-let WIDTH = 800;
-let HEIGHT = 800;
+
+const WIDTH = 800;
+const HEIGHT = 800;
+const FRAMERATE = 60;
+
 let startDate = new Date();
+
+// Variável auxiliar
 let finished = false;
 
 function setup() {
@@ -9,7 +14,7 @@ function setup() {
   createCanvas(WIDTH, HEIGHT);
   bracinho = new Braco(30);
   angleMode(DEGREES);
-  frameRate(45);
+  frameRate(60);
 }
 
 function draw() {
@@ -20,10 +25,20 @@ function draw() {
 class Braco{
   
   constructor(UC){
+
+    // Cria guias para o braço e o antebraço
     this.braco = new createVector(0, 2*UC); 
     this.antebraco = new createVector(0, 3*UC);
+
+    // Inicializa variável que ajustará a rotação
     this.angulo = 0;
-    this.const = -0.75;
+
+    /* Constante somada ao ângulo a cada frame.
+    /  Esse é o valor pois o braço deve girar 45°
+    /  a cada 2 segundos, por isso o valor de 
+    /  FRAMERATE é dividido por 2.
+    */
+    this.const = 45 / (FRAMERATE*2);
   }
   
   update(){
@@ -31,16 +46,16 @@ class Braco{
     /* Condição para medir o tempo inicial da 
     /  animação 
     */
-    if (frameCount == 0) {
-      startDate = new Date();
-    }
+    //if (frameCount == 0) {
+    //  startDate = new Date();
+    //}
     
     
     /* Condição que define quando a rotação
     /  vai parar
     */
     if(this.angulo > -45){
-      this.angulo+=this.const;
+      this.angulo-=this.const;
     }
     
     /* Condição para o tempo só ser imprimido
