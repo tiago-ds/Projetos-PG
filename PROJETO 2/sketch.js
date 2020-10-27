@@ -1,96 +1,93 @@
 const WIDTH = 1000;
 const HEIGHT = 600;
 
-let t = 0.05;
-let pontos = [];
 let curvas = [];
-let curva = [];
-let doi = false;
-let btn_CriarCurva, btn_SelecionarCurva, btn_DeletarCurva;
-let box_PontosControle, box_PoligonaisControle, box_Curvas;
-let a = 1;
+let pontos_controle = [];
+
+let numero_avaliacoes = 200;
+
+let butao;
 
 function setup() {
   createCanvas(WIDTH, HEIGHT);
-
   background(188);
-
-
-  fill(70);
-  rect(0, 0, WIDTH/6, HEIGHT);
-  
-  
-
-  btn_CriarCurva = createButton('New Curve').position(20, 50).mousePressed(Adamastor);
-  btn_SelecionarCurva = createButton('Select Curve').position(20, 100);
-  btn_DeletarCurva = createButton('Delete Curve').position(20, 150);
-  box_PontosControle = createCheckbox('Control Points', true)
-  box_PoligonaisControle = createCheckbox('Control Poligonals', true);
-  box_Curvas = createCheckbox('Curves', true);
-  //box_PontosControle.changed(Evento);
-  //butao.mousePressed(Adamastor);
+  butao = createButton('generate').position(50, 50);
+  butao.mousePressed(Generate);
 }
 
 function draw() {
-  strokeWeight(5);
-  
-  if(!doi)
-    doi = true;
-  if(a == 1){
-    for(pontoo in pontos){
-      point(pontos[pontoo].x, pontos[pontoo].y); 
-    }
+  for(ponto in pontos_controle){
+    pontos_controle[ponto].display();
   }
-  strokeWeight(2);
-  if(doi){
-    for(i = 0; i < curvas.length; i++){
-      for(j = 0; j < curvas[i].length; j++)
-        point(curvas[i][j].x, curvas[i][j].y);
-    }
+  for(curva in curvas){
+    curvas[curva].display_curva();
+    curvas[curva].display_pontos();
   }
-  doi = false;
-  curvas.push(curva);
-  curva = [];
 }
 
-function castelinho(pontos) {
+function mouseClicked() {
+  pontos_controle.push(new Ponto(mouseX, mouseY));
+}
+
+function castelinho(pontos, x) {
   if (pontos.length > 1) {
     let aux = [];
-    let xX;
-    let yY;
+    let tX, tY;
     for (i = 0; i < pontos.length - 1; i++) {
-      xX = pontos[i].x * (1 - t) + pontos[i + 1].x * t;
-      yY = pontos[i].y * (1 - t) + pontos[i + 1].y * t;
-      aux.push({ x: xX, y: yY });
+      tX = pontos[i].x * (1 - (x/numero_avaliacoes)) + pontos[i + 1].x * (x/numero_avaliacoes);
+      tY = pontos[i].y * (1 - (x/numero_avaliacoes)) + pontos[i + 1].y * (x/numero_avaliacoes);
+      aux.push(new Ponto(tX, tY));
     }
-    return castelinho(aux);
+    return castelinho(aux, x);
   }
   else {
     return pontos[0];
   }
 }
 
-function mouseClicked() {
-  if(mouseX >= WIDTH/6){
-    pontos.push({x:mouseX, y:mouseY});
-    t = 0;
+
+function Generate(){
+  let c = new Curva();
+  for(x = 0; x <= numero_avaliacoes; x++){
+    let ponto = castelinho(pontos_controle, x);
+    c.pontos_avaliacao.push({ x: ponto.x, y: ponto.y });
+    c.pontos_controle = pontos_controle;
   }
-  else{
-    
+  curvas.push(c);
+  pontos_controle = [];
+}
+
+class Curva{
+  constructor(){
+    //O tamanho de pontos_Avaliacao será de n+1 avaliações,
+    //pois ele serve de base para as linhas de avaliação.
+    this.pontos_avaliacao = [];
+    this.pontos_controle = [];
+  }
+  display_curva(){
+    strokeWeight(2);
+    for(x = 0; x < this.pontos_avaliacao.length - 1; x++){
+      line(this.pontos_avaliacao[x].x,
+           this.pontos_avaliacao[x].y,
+           this.pontos_avaliacao[x + 1].x,
+           this.pontos_avaliacao[x + 1].y);
+    }
+  }
+  display_pontos(){
+    strokeWeight(5);
+    for(x = 0; x < this.pontos_controle.length; x++){
+      point(this.pontos_controle[x].x, this.pontos_controle[x].y);
+    }
   }
 }
 
-
-function Adamastor(){
-  while(t <= 1){
-    let ponto = castelinho(pontos);
-    fazendo = true;
-    curva.push({ x: ponto.x, y: ponto.y });
-    for(x = 0; x < curva.length; x++){
-      point(curva[x].x, curva[x].y);
-    }
-    t+=0.002;
+class Ponto{
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
   }
-  doi = true;
-  pontos = [];
+  display(){
+    strokeWeight(5);      
+    point(this.x, this.y);
+  }
 }
