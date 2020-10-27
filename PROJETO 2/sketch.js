@@ -22,6 +22,7 @@ function draw() {
   for(curva in curvas){
     curvas[curva].display_curva();
     curvas[curva].display_pontos();
+    curvas[curva].display_poligonais();
   }
 }
 
@@ -79,6 +80,15 @@ class Curva{
     strokeWeight(5);
     for(x = 0; x < this.pontos_controle.length; x++){
       point(this.pontos_controle[x].x, this.pontos_controle[x].y);
+    }
+  }
+  display_poligonais(){
+    strokeWeight(1);
+    for(x = 0; x < this.pontos_controle.length - 1; x++){
+      line(this.pontos_controle[x].x, 
+           this.pontos_controle[x].y,
+           this.pontos_controle[x + 1].x,
+           this.pontos_controle[x + 1].y);
     }
   }
 }
