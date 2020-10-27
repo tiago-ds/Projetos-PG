@@ -1,35 +1,56 @@
-let t = 0.05;
-let tamanho = false;
-let pontos = [];
+const WIDTH = 1000;
+const HEIGHT = 600;
 
+let t = 0.05;
+let pontos = [];
+let curvas = [];
 let curva = [];
+let doi = false;
+let btn_CriarCurva, btn_SelecionarCurva, btn_DeletarCurva;
+let box_PontosControle, box_PoligonaisControle, box_Curvas;
+let a = 1;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(WIDTH, HEIGHT);
+
   background(188);
+
+
+  fill(70);
+  rect(0, 0, WIDTH/6, HEIGHT);
+  
+  
+
+  btn_CriarCurva = createButton('New Curve').position(20, 50).mousePressed(Adamastor);
+  btn_SelecionarCurva = createButton('Select Curve').position(20, 100);
+  btn_DeletarCurva = createButton('Delete Curve').position(20, 150);
+  box_PontosControle = createCheckbox('Control Points', true)
+  box_PoligonaisControle = createCheckbox('Control Poligonals', true);
+  box_Curvas = createCheckbox('Curves', true);
+  //box_PontosControle.changed(Evento);
+  //butao.mousePressed(Adamastor);
 }
 
 function draw() {
   strokeWeight(5);
-  for(pontoo in pontos){
-    point(pontos[pontoo].x, pontos[pontoo].y); 
-  }
-  square(350, 0, 50);
-  text('  Botão', 350, 25);
-  strokeWeight(2);
-
-  if(tamanho){
-    tamanho = pontos.length;
-    if(t < 1){
-    let ponto = castelinho(pontos);
-    curva.push({ x: ponto.x, y: ponto.y });
-    t+=0.002;
-    for(x = 0; x < curva.length; x++){
-      point(curva[x].x, curva[x].y);
+  
+  if(!doi)
+    doi = true;
+  if(a == 1){
+    for(pontoo in pontos){
+      point(pontos[pontoo].x, pontos[pontoo].y); 
     }
   }
+  strokeWeight(2);
+  if(doi){
+    for(i = 0; i < curvas.length; i++){
+      for(j = 0; j < curvas[i].length; j++)
+        point(curvas[i][j].x, curvas[i][j].y);
+    }
   }
-  
+  doi = false;
+  curvas.push(curva);
+  curva = [];
 }
 
 function castelinho(pontos) {
@@ -50,13 +71,26 @@ function castelinho(pontos) {
 }
 
 function mouseClicked() {
-  if((mouseX >= 350 && mouseX <= 400) && (mouseY >= 0 && mouseY <= 50)){
-    tamanho = true;
-    background(188);
-  }
-  else{
+  if(mouseX >= WIDTH/6){
     pontos.push({x:mouseX, y:mouseY});
     t = 0;
   }
+  else{
+    
+  }
 }
 
+
+function Adamastor(){
+  while(t <= 1){
+    let ponto = castelinho(pontos);
+    fazendo = true;
+    curva.push({ x: ponto.x, y: ponto.y });
+    for(x = 0; x < curva.length; x++){
+      point(curva[x].x, curva[x].y);
+    }
+    t+=0.002;
+  }
+  doi = true;
+  pontos = [];
+}
