@@ -47,6 +47,8 @@ function castelinho(pontos, x) {
 
 
 function Generate(){
+  if(pontos_controle.length <= 1)
+    return;
   let c = new Curva();
   for(x = 0; x <= numero_avaliacoes; x++){
     let ponto = castelinho(pontos_controle, x);
