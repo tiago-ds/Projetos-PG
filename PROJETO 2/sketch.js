@@ -2,34 +2,38 @@ const WIDTH = 1000;
 const HEIGHT = 600;
 
 let t = 0.05;
-let pontos = [];
+let pontos = [{x:'10', y:'10'},
+            {x:'10', y:'150'},
+            {x:'200', y:'300'},
+            {x:'200', y:'150'}];
+
 let curvas = [];
 let curva = [];
 let doi = false;
-let btn_CriarCurva, btn_SelecionarCurva, btn_DeletarCurva;
+
+let btn_CriarCurva = document.getElementById('newCurve');
+console.log(btn_CriarCurva)
+let btn_SelecionarCurva = document.getElementById('selectCurve');
+let btn_DeletarCurva = document.getElementById('deleteCurve');
+
 let box_PontosControle, box_PoligonaisControle, box_Curvas;
 let a = 1;
 
+btn_CriarCurva.onclick = Adamastor;
 function setup() {
   createCanvas(WIDTH, HEIGHT);
 
-  background(188);
-
-
-  fill(70);
-  rect(0, 0, WIDTH/6, HEIGHT);
-  
-  
-
-  btn_CriarCurva = createButton('New Curve').position(20, 50).mousePressed(Adamastor);
-  btn_SelecionarCurva = createButton('Select Curve').position(20, 100);
-  btn_DeletarCurva = createButton('Delete Curve').position(20, 150);
   box_PontosControle = createCheckbox('Control Points', true)
   box_PoligonaisControle = createCheckbox('Control Poligonals', true);
   box_Curvas = createCheckbox('Curves', true);
+
+  box_PontosControle.id('checkbox')
+  box_PoligonaisControle.id('checkbox')
+  box_PoligonaisControle.id('checkbox')
   //box_PontosControle.changed(Evento);
   //butao.mousePressed(Adamastor);
 }
+
 
 function draw() {
   strokeWeight(5);
@@ -82,6 +86,7 @@ function mouseClicked() {
 
 
 function Adamastor(){
+  console.log("teste")
   while(t <= 1){
     let ponto = castelinho(pontos);
     fazendo = true;
