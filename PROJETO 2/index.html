@@ -1,39 +1,14 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-  <script src="p5.js"></script>
-  <script src="p5.sound.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <meta charset="utf-8">
+<!DOCTYPE html><html lang="en"><head>
+    <script src="p5.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
 
   </head>
   <body>
-    <div class="container">
-      <div class="verticalBar">
-        <div class="buttons">
-          <button id="newCurve">Nova Curva</button>
-          <button id="selectCurve">Selecionar Curva</button>
-          <button id="deleteCurve">Deletar Curva</button>
-        </div>
-        <div class="checkboxes">
-          <div>
-            <input type="checkbox" id="controlPoints" name="controlPoints">
-            <label for="controlPoints">Exibir Pontos de Controle</label>
-          </div>
-          <div>
-            <input type="checkbox" id="polygonalPoints" name="polygonalPoints">
-            <label for="controlPoints">Exibir Poligonais de Controle</label>
-          </div>
-          <div>
-            <input type="checkbox" id="curves" name="curves">
-            <label for="controlPoints">Exibir Curvas</label>
-          </div>
-        </div>
-      </div>
-  
-      <div class="canvas">
-        <script src="sketch.js"></script>
-      </div>
+    <button id="criar"> cria curva cara </button>
+    <div id='container'>
+      <script src="sketch.js"></script>
     </div>
-
-  </body>
-</html>
+    
+</body></html>

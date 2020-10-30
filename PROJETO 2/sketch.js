@@ -4,19 +4,15 @@ const HEIGHT = 600;
 let curvas = [];
 let pontos_controle = [];
 
-let numero_avaliacoes = 200;
-
-let btn_CriarCurva = document.getElementById('newCurve');
-let btn_SelecionarCurva = document.getElementById('selectCurve');
-let btn_DeletarCurva = document.getElementById('deleteCurve');
-btn_CriarCurva.onclick = Generate
-
-let box_PontosControle, box_PoligonaisControle, box_Curvas;
+let numero_avaliacoes = 300;
 
 let butao;
 
 function setup() {
   createCanvas(WIDTH, HEIGHT);
+  background(188);
+  butao = createButton('generate').position(50, 50);
+  butao.mousePressed(Generate);
 }
 
 function draw() {
@@ -25,8 +21,8 @@ function draw() {
   }
   for(curva in curvas){
     curvas[curva].display_curva();
-    curvas[curva].display_pontos();
-    curvas[curva].display_poligonais();
+    //curvas[curva].display_pontos();
+    //curvas[curva].display_poligonais();
   }
 }
 
