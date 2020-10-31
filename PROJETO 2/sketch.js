@@ -42,8 +42,6 @@ box_PontosControle.onchange = TogglePontosControle;
 box_PoligonaisControle.onchange = TogglePoligonaisControle;
 box_Curvas.onchange = ToggleCurvas;
 
-let butao;
-
 function setup() {
   createCanvas(WIDTH, HEIGHT);
   BGC1 = color(183, 206, 232);
