@@ -1,18 +1,5 @@
 // TODO:
-// Lista que salva as curvas pra poder selecionar qualquer uma delas
-// Campo pra trocar o valor de numero_avaliacoes
-// Botão de alterar curva escolhida
-
-// minha ideia:
-// em cada rodada do Draw(), eu pego os pontos de controle de todas as curvas,
-// e aplico de casteljau com cada array de pontos de controle, um pra cada curva
-// o objeto Curva vai ter pontos de controle e cor apenas. Em cada rodada do draw,
-// eu entrego esse atributo de cada curva pra um decasteljau, e ele recalcula.
-
-
-//pra a area da curva selecionada:
-//let divla = document.querySelector('saidjfasjfisajdf')
-//divla.appendChild(o node);
+// Lista que salva as curvas pra poder selecionar qualquer uma delas --
 
 const WIDTH = 1000;
 const HEIGHT = 600;
@@ -31,7 +18,7 @@ let curvas = [];
 // Array dos pontos de controle sendo adicionados agr
 let pontos_controle;
 
-// WIP variável de seleção do número de Avaliações
+// Variável de seleção do número de Avaliações
 let numero_avaliacoes = 200;
 
 //Flags para mostrar ou não essas coisas aí
@@ -50,6 +37,7 @@ let box_PoligonaisControle = document.getElementById('polygonalPoints');
 let box_Curvas = document.getElementById('curves');
 
 let avaliacoes_form = document.getElementById('avaliationsNumber');
+avaliacoes_form.value = numero_avaliacoes;
 
 btn_CriarCurva.onclick = criar_curva;
 btn_SelecionarCurva.onclick = selecionar_curva; 
@@ -225,7 +213,7 @@ function ToggleCurvas(){
     flag_curvas = true;
 }
 
-//Botões de criar, selecionar e deletar curva.
+//Métodos de criar, selecionar e deletar curva.
 function criar_curva(){
   if(selecionando_curva){
     selecionando_curva = false;
@@ -280,6 +268,7 @@ function deletar_curva(){
     }
 }
 
+//Método para trocar o número de avaliações
 function nova_avaliacoes_n(){
   if(!isNaN(avaliacoes_form.value) && avaliacoes_form.value >= 1){
     numero_avaliacoes = avaliacoes_form.value;
