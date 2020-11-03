@@ -3,6 +3,17 @@
 // Campo pra trocar o valor de numero_avaliacoes
 // Botão de alterar curva escolhida
 
+// minha ideia:
+// em cada rodada do Draw(), eu pego os pontos de controle de todas as curvas,
+// e aplico de casteljau com cada array de pontos de controle, um pra cada curva
+// o objeto Curva vai ter pontos de controle e cor apenas. Em cada rodada do draw,
+// eu entrego esse atributo de cada curva pra um decasteljau, e ele recalcula.
+
+
+//pra a area da curva selecionada:
+//let divla = document.querySelector('saidjfasjfisajdf')
+//divla.appendChild(o node);
+
 const WIDTH = 1000;
 const HEIGHT = 600;
 
@@ -10,7 +21,9 @@ let BGC1;
 let BGC2;
 
 let construindo = false;
+
 let selecionada;
+let selecionado;
 
 // Array com as curvas
 let curvas = [];
@@ -19,7 +32,7 @@ let curvas = [];
 let pontos_controle = [];
 
 // WIP variável de seleção do número de Avaliações
-let numero_avaliacoes = 10;
+let numero_avaliacoes = 100;
 
 //Flags para mostrar ou não essas coisas aí
 let FlagPontosControle = true;
@@ -69,6 +82,36 @@ function mouseClicked() {
     pontos_controle.push(new Ponto(mouseX, mouseY));
 }
 
+function mousePressed() {
+  if(selecionada){
+    for(const p of curvas[selecionada].pontos_controle){
+      if(check_near(p, mouseX, mouseY)){
+        p.locked = true;
+        selecionado = curvas[selecionada].pontos_controle.indexOf(p);
+        console.log(selecionado)
+      }
+    }
+  }
+}
+
+function  mouseDragged() {
+  if(selecionado != undefined){
+    for(const p of curvas[selecionada].pontos_controle){
+        if(p.locked){
+          p.x = mouseX;
+          p.y = mouseY;
+      }
+    }
+  }
+}
+
+function mouseReleased() {
+  if(selecionado != undefined){
+    curvas[selecionada].pontos_controle[selecionado].locked = false;
+    selecionado = undefined;
+  }
+}
+
 function castelinho(pontos, x) {
   if (pontos.length > 1) {
     let aux = [];
@@ -86,6 +129,8 @@ function castelinho(pontos, x) {
 }
 
 class Curva{
+  // O tamanho de pontos_Avaliacao será de n+1 avaliações,
+  // pois ele serve de base para as linhas de avaliação.
   constructor(){
     this.pontos_avaliacao = [];
     this.pontos_controle = [];
@@ -94,6 +139,7 @@ class Curva{
 
     this.secionada = false;
   }
+
   display_curva(){
     strokeWeight(2);
     stroke(this.cor);
@@ -106,6 +152,7 @@ class Curva{
            this.pontos_avaliacao[x + 1].y);
     }
   }
+
   display_pontos(){
     strokeWeight(5);
     stroke(0);
@@ -113,6 +160,7 @@ class Curva{
       point(this.pontos_controle[x].x, this.pontos_controle[x].y);
     }
   }
+
   display_poligonais(){
     strokeWeight(1);
     stroke(0);
@@ -158,11 +206,16 @@ function ToggleCurvas(){
 }
 
 function criar_curva(){
+  if(selecionada != undefined){
+    curvas[selecionada].selecionada = false;
+    selecionada = undefined;
+  }
   if(construindo){
     if(pontos_controle.length > 1){
-      Generate(pontos_controle);
+      curvas.push(Generate(pontos_controle));
       construindo = false;
       btn_CriarCurva.style.backgroundColor = 'white';
+      pontos_controle = [];
     }
     return;
   }
@@ -191,15 +244,15 @@ function deletar_curva(){
     }
 }
 
-function Generate(){
+//vai me dar uma curva que tem os pontos de avaliação e os pontos de controle
+function Generate(pontos_controle){
   let c = new Curva();
   for(x = 0; x <= numero_avaliacoes; x++){
     let ponto = castelinho(pontos_controle, x);
     c.pontos_avaliacao.push(new Ponto(ponto.x, ponto.y));
     c.pontos_controle = pontos_controle;
   }
-  curvas.push(c);
-  pontos_controle = [];
+  return c;
 }
 
 // pra desenhar um gradiente de fundo bonitinho kk
