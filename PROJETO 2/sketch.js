@@ -19,7 +19,7 @@ let curvas = [];
 let pontos_controle = [];
 
 // WIP variável de seleção do número de Avaliações
-let numero_avaliacoes = 300;
+let numero_avaliacoes = 10;
 
 //Flags para mostrar ou não essas coisas aí
 let FlagPontosControle = true;
@@ -87,8 +87,6 @@ function castelinho(pontos, x) {
 
 class Curva{
   constructor(){
-    //O tamanho de pontos_Avaliacao será de n+1 avaliações,
-    //pois ele serve de base para as linhas de avaliação.
     this.pontos_avaliacao = [];
     this.pontos_controle = [];
 
@@ -99,6 +97,8 @@ class Curva{
   display_curva(){
     strokeWeight(2);
     stroke(this.cor);
+    if(this.selecionada)
+      stroke(118);
     for(x = 0; x < this.pontos_avaliacao.length - 1; x++){
       line(this.pontos_avaliacao[x].x,
            this.pontos_avaliacao[x].y,
@@ -171,9 +171,11 @@ function criar_curva(){
 }
 
 function selecionar_curva(){
+  if(selecionada)
+    curvas[selecionada].selecionada = false;
   let index = prompt('Qual curva?');
   if(index >= 0 && curvas.length > index){
-    curvas[index].selected = true;
+    curvas[index].selecionada = true;
     selecionada = index;
   }
   else
@@ -200,6 +202,8 @@ function Generate(){
   pontos_controle = [];
 }
 
+// pra desenhar um gradiente de fundo bonitinho kk
+
 function setGradient(x, y, w, h, c1, c2) {
   noFill();
   for (let i = y; i <= y + h; i++) {
@@ -211,7 +215,6 @@ function setGradient(x, y, w, h, c1, c2) {
 }
 
 function check_near(P, mX, mY){
-    console.log(mouseX, P.x)
     if((mX <= (P.x + 4) && mX >= (P.x - 4)) && (mY <= (P.y + 4) && mY >= (P.y - 4)))
         return true;
     return false;
