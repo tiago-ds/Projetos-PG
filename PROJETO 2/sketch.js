@@ -32,7 +32,7 @@ let curvas = [];
 let pontos_controle;
 
 // WIP variável de seleção do número de Avaliações
-let numero_avaliacoes = 200;
+let numero_avaliacoes = 20;
 
 //Flags para mostrar ou não essas coisas aí
 let flag_pontos_controle = true;
@@ -84,7 +84,7 @@ function mouseClicked() {
   if(selecionando_curva){
     procurar_curva();
   }
-  if(mouseX >= 0 && mouseX <= WIDTH && pontos_controle != undefined)
+  if(mouse_in_canvas() && pontos_controle != undefined)
     pontos_controle.push(new Ponto(mouseX, mouseY));
 }
 
@@ -103,7 +103,7 @@ function mousePressed() {
 function mouseDragged() {
   if(ponto_selecionado != undefined){
     for(const p of curvas[curva_selecionada].pontos_controle){
-        if(p.locked){
+        if(p.locked && mouse_in_canvas()){
           p.x = mouseX;
           p.y = mouseY;
           curvas[curva_selecionada].regenerate();
@@ -223,6 +223,10 @@ function ToggleCurvas(){
 
 //Botões de criar, selecionar e deletar curva.
 function criar_curva(){
+  if(selecionando_curva){
+    selecionando_curva = false;
+    btn_SelecionarCurva.style.backgroundColor = 'white';
+  }
   // Condição que não deixa que tenha uma curva selecionada na hora de 
   // criar uma curva nova.
   if(curva_selecionada != undefined){
@@ -257,6 +261,9 @@ function selecionar_curva(){
   if(!selecionando_curva){
     selecionando_curva = true;
     btn_SelecionarCurva.style.backgroundColor = 'red';
+  }else{
+    selecionando_curva = false;
+    btn_SelecionarCurva.style.backgroundColor = 'white';
   }
 }
 
@@ -265,7 +272,7 @@ function deletar_curva(){
         curvas.splice(curva_selecionada, 1);
         curva_selecionada = undefined;
     }else{
-        alert('SELECIONA A PORRA DA CURVA');
+        alert('Desculpe, não há curva selecionada.');
     }
 }
 
@@ -331,4 +338,10 @@ function procurar_curva(){
       }
     }
   }
+}
+
+function mouse_in_canvas(){
+  if((mouseX >= 0 && mouseX <= WIDTH) && (mouseY >= 0 && mouseY <= HEIGHT))
+    return true;
+  return false;
 }
