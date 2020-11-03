@@ -35,10 +35,23 @@ button:hover {
   text-align: center;
 }
 
+.avaliacoesform{
+  display:flex;
+  margin-top: 20%;
+  padding-left: 5%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avaliacoesform > div{
+  max-width: 100px;
+  margin: 2%;
+}
+
 .checkboxes {
   display: flex;
   flex-direction: column;
-  margin-top: 135%;
+  margin-top: 100%;
   padding-left: 5%;
 }
 

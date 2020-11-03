@@ -32,7 +32,7 @@ let curvas = [];
 let pontos_controle;
 
 // WIP variável de seleção do número de Avaliações
-let numero_avaliacoes = 20;
+let numero_avaliacoes = 200;
 
 //Flags para mostrar ou não essas coisas aí
 let flag_pontos_controle = true;
@@ -49,6 +49,8 @@ let box_PontosControle = document.getElementById('controlPoints');
 let box_PoligonaisControle = document.getElementById('polygonalPoints');
 let box_Curvas = document.getElementById('curves');
 
+let avaliacoes_form = document.getElementById('avaliationsNumber');
+
 btn_CriarCurva.onclick = criar_curva;
 btn_SelecionarCurva.onclick = selecionar_curva; 
 btn_DeletarCurva.onclick = deletar_curva;
@@ -56,6 +58,8 @@ btn_DeletarCurva.onclick = deletar_curva;
 box_PontosControle.onchange = TogglePontosControle;
 box_PoligonaisControle.onchange = TogglePoligonaisControle;
 box_Curvas.onchange = ToggleCurvas;
+
+avaliacoes_form.onchange = nova_avaliacoes_n;
 
 function setup() {
   createCanvas(WIDTH, HEIGHT);
@@ -274,6 +278,17 @@ function deletar_curva(){
     }else{
         alert('Desculpe, não há curva selecionada.');
     }
+}
+
+function nova_avaliacoes_n(){
+  if(!isNaN(avaliacoes_form.value) && avaliacoes_form.value >= 1){
+    numero_avaliacoes = avaliacoes_form.value;
+    for(const c of curvas)
+      c.regenerate();
+  }else{
+    alert('Favor digitar um número válido.');
+    avaliacoes_form.value = numero_avaliacoes;
+  }
 }
 
 // Vai criar uma curva através de vários Decasteljau
