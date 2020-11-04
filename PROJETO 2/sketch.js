@@ -37,7 +37,7 @@ let box_PoligonaisControle = document.getElementById('polygonalPoints');
 let box_Curvas = document.getElementById('curves');
 
 let avaliacoes_form = document.getElementById('avaliationsNumber');
-avaliacoes_form.value = numero_avaliacoes;
+//avaliacoes_form.value = numero_avaliacoes;
 
 btn_CriarCurva.onclick = criar_curva;
 btn_SelecionarCurva.onclick = selecionar_curva; 

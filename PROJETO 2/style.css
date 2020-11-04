@@ -25,6 +25,34 @@ button:hover {
   transition: background-color 0.5s ease;
 }
 
+input[type=number] {
+  border: none;
+  border-bottom: solid 2px rgb(38, 175, 175);
+  background-color: transparent;
+  width: 62%;
+  transition: width 0.5s ease-in-out;
+}
+
+input[type=number]:focus {
+  width: 80%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+input[type=number] {
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+label {
+  display: inline-block;
+}
+
 .container {
   display: flex;
   position: absolute;
@@ -37,6 +65,7 @@ button:hover {
 
 .avaliacoesform{
   display:flex;
+  text-align: center;
   margin-top: 20%;
   padding-left: 5%;
   flex-direction: column;
