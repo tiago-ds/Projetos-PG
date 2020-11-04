@@ -288,6 +288,11 @@ function selecionar_curva(){
   if(pontos_controle)
     return;
   if(curva_selecionada != undefined){
+    if(adicionando_ponto){
+      adicionando_ponto = false;
+      btn_AdicionarPonto.style.backgroundColor = 'white';
+      btn_AdicionarPonto.innerText = 'Adicionar Ponto';
+    }
     if(ponto_selecionado != undefined){
       curvas[curva_selecionada].pontos_controle[ponto_selecionado].selecionado = false;
       ponto_selecionado = undefined;
