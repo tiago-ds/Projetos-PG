@@ -27,10 +27,14 @@ let flag_poligonais_controle = false;
 let flag_curvas = true;
 
 let selecionando_curva = false;
+let adicionando_ponto = false;
 
 let btn_CriarCurva = document.getElementById('newCurve');
 let btn_SelecionarCurva = document.getElementById('selectCurve');
 let btn_DeletarCurva = document.getElementById('deleteCurve');
+
+// botoes de adicionar e remover ponto
+let btn_AdicionarPonto =  document.getElementById('addPoint');
 
 let box_PontosControle = document.getElementById('controlPoints');
 let box_PoligonaisControle = document.getElementById('polygonalPoints');
@@ -42,6 +46,8 @@ let avaliacoes_form = document.getElementById('avaliationsNumber');
 btn_CriarCurva.onclick = criar_curva;
 btn_SelecionarCurva.onclick = selecionar_curva; 
 btn_DeletarCurva.onclick = deletar_curva;
+
+btn_AdicionarPonto.onclick = adicionar_ponto;
 
 box_PontosControle.onchange = TogglePontosControle;
 box_PoligonaisControle.onchange = TogglePoligonaisControle;
@@ -73,6 +79,16 @@ function draw() {
 
 // Funções do mouse //
 function mouseClicked() {
+  if(curva_selecionada != undefined){
+    if(adicionando_ponto && mouse_in_canvas()){
+      curvas[curva_selecionada].pontos_controle.push(new Ponto(mouseX, mouseY));
+      curvas[curva_selecionada].regenerate();
+      btn_AdicionarPonto.style.backgroundColor = 'white';
+      btn_AdicionarPonto.innerText = 'Adicionar Ponto';
+      adicionando_ponto = false;
+      return;
+    }
+  }
   if(selecionando_curva){
     procurar_curva();
   }
@@ -160,11 +176,11 @@ class Curva{
 
   display_pontos(){
     strokeWeight(5);
-    stroke(0);
-    if(this.selecionada)
-      stroke(250, 50, 50);
-    for(x = 0; x < this.pontos_controle.length; x++){
-      point(this.pontos_controle[x].x, this.pontos_controle[x].y);
+    for(const p of this.pontos_controle){
+      stroke(0);
+      if(this.selecionada)
+        stroke(250, 50, 50);
+      p.display();
     }
   }
 
@@ -184,9 +200,13 @@ class Ponto{
   constructor(x, y){
     this.x = x;
     this.y = y;
+
+    this.selecionado = false;
   }
   display(){
-    strokeWeight(5);      
+    if(this.selecionado)
+      stroke(50, 250, 50);
+    strokeWeight(5);
     point(this.x, this.y);
   }
 }
@@ -259,9 +279,11 @@ function selecionar_curva(){
   if(!selecionando_curva){
     selecionando_curva = true;
     btn_SelecionarCurva.style.backgroundColor = 'red';
+    btn_SelecionarCurva.innerText = 'Cancelar';
   }else{
     selecionando_curva = false;
     btn_SelecionarCurva.style.backgroundColor = 'white';
+    btn_SelecionarCurva.innerText = 'Selecionar Curva';
   }
 }
 
@@ -274,6 +296,23 @@ function deletar_curva(){
     }else{
       alert('Desculpe, não há curva selecionada.');
     }
+}
+
+function adicionar_ponto(){
+  if(curva_selecionada == undefined){
+    alert('Selecione a curva que quer fazer alterações.');
+  }
+  if(adicionando_ponto){
+    adicionando_ponto = false;
+    btn_AdicionarPonto.style.backgroundColor = 'white';
+    btn_AdicionarPonto.style.innerText = 'Adicionar Ponto';
+    return;
+  }
+  if(pontos_controle == undefined && !selecionando_curva){
+    adicionando_ponto = true;
+    btn_AdicionarPonto.style.backgroundColor = 'red';
+    btn_AdicionarPonto.innerText = 'Cancelar';
+  }
 }
 
 // Método para trocar o número de avaliações
@@ -333,7 +372,7 @@ function procurar_curva(){
         selecionando_curva = false;
 
         btn_SelecionarCurva.style.backgroundColor = 'blue';
-        btn_SelecionarCurva.innerText = 'Desselecionar kk'
+        btn_SelecionarCurva.innerText = 'Desselecionar'
 
         return;
       }
@@ -346,7 +385,7 @@ function procurar_curva(){
         selecionando_curva = false;
 
         btn_SelecionarCurva.style.backgroundColor = 'blue';
-        btn_SelecionarCurva.innerText = 'Desselecionar kk'
+        btn_SelecionarCurva.innerText = 'Desselecionar'
       }
     }
   }
