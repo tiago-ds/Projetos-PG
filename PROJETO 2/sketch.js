@@ -10,7 +10,7 @@ let BGC2;
 
 // A gente não sabe usar recursão, então vamos de variável global
 let curva_selecionada;
-let ponto_selecionado;
+let ponto_movendo;
 
 // Array com as curvas
 let curvas = [];
@@ -101,7 +101,7 @@ function mousePressed() {
     for(const p of curvas[curva_selecionada].pontos_controle){
       if(check_near(p, mouseX, mouseY)){
         p.locked = true;
-        ponto_selecionado = curvas[curva_selecionada].pontos_controle.indexOf(p);
+        ponto_movendo = curvas[curva_selecionada].pontos_controle.indexOf(p);
         return;
       }
     }
@@ -109,21 +109,20 @@ function mousePressed() {
 }
 
 function mouseDragged() {
-  if(ponto_selecionado != undefined){
-    for(const p of curvas[curva_selecionada].pontos_controle){
-        if(p.locked && mouse_in_canvas()){
-          p.x = mouseX;
-          p.y = mouseY;
-          curvas[curva_selecionada].regenerate();
-      }
-    }
+  if(ponto_movendo != undefined){
+    var p = curvas[curva_selecionada].pontos_controle[ponto_movendo];
+    if(p.locked && mouse_in_canvas()){
+      p.x = mouseX;
+      p.y = mouseY;
+      curvas[curva_selecionada].regenerate();
   }
+}
 }
 
 function mouseReleased() {
-  if(ponto_selecionado != undefined){
-    curvas[curva_selecionada].pontos_controle[ponto_selecionado].locked = false;
-    ponto_selecionado = undefined;
+  if(ponto_movendo != undefined){
+    curvas[curva_selecionada].pontos_controle[ponto_movendo].locked = false;
+    ponto_movendo = undefined;
   }
 }
 
@@ -154,7 +153,7 @@ class Curva{
 
     this.cor = 0;
 
-    this.secionada = false;
+    this.selecionada = false;
   }
 
   regenerate(){
