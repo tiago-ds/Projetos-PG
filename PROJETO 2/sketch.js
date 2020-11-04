@@ -11,6 +11,7 @@ let BGC2;
 // A gente não sabe usar recursão, então vamos de variável global
 let curva_selecionada;
 let ponto_movendo;
+let ponto_selecionado;
 
 // Array com as curvas
 let curvas = [];
@@ -35,6 +36,7 @@ let btn_DeletarCurva = document.getElementById('deleteCurve');
 
 // botoes de adicionar e remover ponto
 let btn_AdicionarPonto =  document.getElementById('addPoint');
+let btn_DeletarPonto = document.getElementById('deletePoint');
 
 let box_PontosControle = document.getElementById('controlPoints');
 let box_PoligonaisControle = document.getElementById('polygonalPoints');
@@ -48,6 +50,8 @@ btn_SelecionarCurva.onclick = selecionar_curva;
 btn_DeletarCurva.onclick = deletar_curva;
 
 btn_AdicionarPonto.onclick = adicionar_ponto;
+btn_DeletarPonto.onclick = deletar_ponto;
+
 
 box_PontosControle.onchange = TogglePontosControle;
 box_PoligonaisControle.onchange = TogglePoligonaisControle;
@@ -87,6 +91,17 @@ function mouseClicked() {
       btn_AdicionarPonto.innerText = 'Adicionar Ponto';
       adicionando_ponto = false;
       return;
+    }else{
+      if(ponto_selecionado != undefined){
+        curvas[curva_selecionada].pontos_controle[ponto_selecionado].selecionado = false;
+        ponto_selecionado = undefined;
+      }
+      for(const p of curvas[curva_selecionada].pontos_controle){
+        if(check_near(p, mouseX, mouseY)){
+          ponto_selecionado = curvas[curva_selecionada].pontos_controle.indexOf(p);
+          p.selecionado = true;
+        }
+      }
     }
   }
   if(selecionando_curva){
@@ -98,6 +113,7 @@ function mouseClicked() {
 
 function mousePressed() {
   if(curva_selecionada != undefined){
+    //até a linha 109 é pra mover o ponto
     for(const p of curvas[curva_selecionada].pontos_controle){
       if(check_near(p, mouseX, mouseY)){
         p.locked = true;
@@ -311,6 +327,14 @@ function adicionar_ponto(){
     adicionando_ponto = true;
     btn_AdicionarPonto.style.backgroundColor = 'red';
     btn_AdicionarPonto.innerText = 'Cancelar';
+  }
+}
+
+function deletar_ponto(){
+  if(ponto_selecionado != undefined){
+    curvas[curva_selecionada].pontos_controle.splice(ponto_selecionado, 1);
+    curvas[curva_selecionada].regenerate();
+    ponto_selecionado = undefined;
   }
 }
 
