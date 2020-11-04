@@ -257,6 +257,10 @@ function criar_curva(){
   // Condição que não deixa que tenha uma curva selecionada na hora de 
   // criar uma curva nova.
   if(curva_selecionada != undefined){
+    if(ponto_selecionado != undefined){
+      curvas[curva_selecionada].pontos_controle[ponto_selecionado].selecionado = false;
+      ponto_selecionado = undefined;
+    }
     curvas[curva_selecionada].selecionada = false;
     curva_selecionada = undefined;
     btn_SelecionarCurva.style.backgroundColor = 'white';
@@ -284,6 +288,10 @@ function selecionar_curva(){
   if(pontos_controle)
     return;
   if(curva_selecionada != undefined){
+    if(ponto_selecionado != undefined){
+      curvas[curva_selecionada].pontos_controle[ponto_selecionado].selecionado = false;
+      ponto_selecionado = undefined;
+    }
     curvas[curva_selecionada].selecionada = false;
     curva_selecionada = undefined;
     btn_SelecionarCurva.style.backgroundColor = 'white';
