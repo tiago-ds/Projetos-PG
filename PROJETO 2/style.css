@@ -80,7 +80,7 @@ label {
 .checkboxes {
   display: flex;
   flex-direction: column;
-  margin-top: 100%;
+  margin-top: 50%;
   padding-left: 5%;
 }
 

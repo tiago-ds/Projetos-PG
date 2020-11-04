@@ -1,6 +1,5 @@
 // TODO:
-// Lista que salva as curvas pra poder selecionar qualquer uma delas --
-
+// Trocar o evevento de mudar a cor do botão de mouse clicked pra mouse pressed
 const WIDTH = 1000;
 const HEIGHT = 600;
 
@@ -316,11 +315,12 @@ function deletar_curva(){
 function adicionar_ponto(){
   if(curva_selecionada == undefined){
     alert('Selecione a curva que quer fazer alterações.');
+    return;
   }
   if(adicionando_ponto){
     adicionando_ponto = false;
     btn_AdicionarPonto.style.backgroundColor = 'white';
-    btn_AdicionarPonto.style.innerText = 'Adicionar Ponto';
+    btn_AdicionarPonto.innerText = 'Adicionar Ponto';
     return;
   }
   if(pontos_controle == undefined && !selecionando_curva){
@@ -331,7 +331,9 @@ function adicionar_ponto(){
 }
 
 function deletar_ponto(){
-  if(ponto_selecionado != undefined){
+  if(ponto_selecionado == undefined){
+    alert('Desculpe, não há ponto selecionado.');
+  }else{
     curvas[curva_selecionada].pontos_controle.splice(ponto_selecionado, 1);
     curvas[curva_selecionada].regenerate();
     ponto_selecionado = undefined;
