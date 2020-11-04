@@ -218,12 +218,15 @@ function criar_curva(){
   if(selecionando_curva){
     selecionando_curva = false;
     btn_SelecionarCurva.style.backgroundColor = 'white';
+    btn_SelecionarCurva.innerText = 'Selecionar Curva';
   }
   // Condição que não deixa que tenha uma curva selecionada na hora de 
   // criar uma curva nova.
   if(curva_selecionada != undefined){
     curvas[curva_selecionada].selecionada = false;
     curva_selecionada = undefined;
+    btn_SelecionarCurva.style.backgroundColor = 'white';
+    btn_SelecionarCurva.innerText = 'Selecionar Curva';
   }
   // Caso já esteja sendo criada uma curva
   if(pontos_controle != undefined){
@@ -249,6 +252,9 @@ function selecionar_curva(){
   if(curva_selecionada != undefined){
     curvas[curva_selecionada].selecionada = false;
     curva_selecionada = undefined;
+    btn_SelecionarCurva.style.backgroundColor = 'white';
+    btn_SelecionarCurva.innerText = 'Selecionar Curva';
+    return;
   }
   if(!selecionando_curva){
     selecionando_curva = true;
@@ -261,14 +267,16 @@ function selecionar_curva(){
 
 function deletar_curva(){
     if(curva_selecionada != undefined){
-        curvas.splice(curva_selecionada, 1);
-        curva_selecionada = undefined;
+      curvas.splice(curva_selecionada, 1);
+      curva_selecionada = undefined;
+      btn_SelecionarCurva.style.backgroundColor = 'white';
+      btn_SelecionarCurva.innerText = 'Selecionar Curva';
     }else{
-        alert('Desculpe, não há curva selecionada.');
+      alert('Desculpe, não há curva selecionada.');
     }
 }
 
-//Método para trocar o número de avaliações
+// Método para trocar o número de avaliações
 function nova_avaliacoes_n(){
   if(!isNaN(avaliacoes_form.value) && avaliacoes_form.value >= 1){
     numero_avaliacoes = avaliacoes_form.value;
@@ -324,7 +332,8 @@ function procurar_curva(){
 
         selecionando_curva = false;
 
-        btn_SelecionarCurva.style.backgroundColor = 'white';
+        btn_SelecionarCurva.style.backgroundColor = 'blue';
+        btn_SelecionarCurva.innerText = 'Desselecionar kk'
 
         return;
       }
@@ -336,9 +345,8 @@ function procurar_curva(){
 
         selecionando_curva = false;
 
-        btn_SelecionarCurva.style.backgroundColor = 'white';
-
-        return;
+        btn_SelecionarCurva.style.backgroundColor = 'blue';
+        btn_SelecionarCurva.innerText = 'Desselecionar kk'
       }
     }
   }
@@ -349,3 +357,4 @@ function mouse_in_canvas(){
     return true;
   return false;
 }
+
