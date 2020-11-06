@@ -103,9 +103,9 @@ label {
 }
 
 .verticalBar {
-  padding: 1em;
+  padding-left: 1em;
   width: 200px;
-  height: 600px;
+  height: 650px;
   background-image: linear-gradient( #b7cee8, #f7f7f7);
   box-shadow: 0.5em 0.5em 0.5em rgba(95,94,94,.12);
 }
