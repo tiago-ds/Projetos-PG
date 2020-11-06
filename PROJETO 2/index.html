@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="pt-br"><head>
   <script src="p5.js"></script>
   <script src="p5.sound.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
-
   </head>
   <body>
     <div class="container">
@@ -16,8 +16,15 @@
           <button id="addPoint">Adicionar Ponto</button>
           <button id="deletePoint">Deletar Ponto</button>
         </div>
+        <div class="sliderscontainer">
+          <h2>Cor da Curva</h2>
+          <input type="range" min="0" max="255" value="0" class="slider" id="redSlider">
+          <input type="range" min="0" max="255" value="0" class="slider" id="greenSlider">
+          <input type="range" min="0" max="255" value="0" class="slider" id="blueSlider">
+        </div>
+        <h2>Número de Avaliações</h2>
         <div class="avaliacoesform">
-          <input type="number" id="avaliationsNumber" name="avaliationsNumber" placeholder="Núm. de avaliações" size="2">
+          <input type="number" id="avaliationsNumber" name="avaliationsNumber" placeholder="Um valor acima de 0" size="2">
         </div>
         <div class="checkboxes">
           <div>

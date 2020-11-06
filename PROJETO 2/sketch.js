@@ -1,7 +1,7 @@
 // TODO:
 // Trocar o evevento de mudar a cor do botão de mouse clicked pra mouse pressed
 const WIDTH = 1000;
-const HEIGHT = 600;
+const HEIGHT = 650;
 
 // Cores do gradiente que serão inicializadas em setup();
 let BGC1;
@@ -21,17 +21,27 @@ let pontos_controle;
 // Variável de seleção do número de Avaliações
 let numero_avaliacoes = 200;
 
-//Flags para mostrar ou não essas coisas aí
+// Flags de controle
+let selecionando_curva = false;
+let adicionando_ponto = false;
+
+// Flags para mostrar ou não essas coisas aí
 let flag_pontos_controle = true;
 let flag_poligonais_controle = false;
 let flag_curvas = true;
 
-let selecionando_curva = false;
-let adicionando_ponto = false;
-
 let btn_CriarCurva = document.getElementById('newCurve');
 let btn_SelecionarCurva = document.getElementById('selectCurve');
 let btn_DeletarCurva = document.getElementById('deleteCurve');
+
+// Coloridinho
+let sld_Red = document.getElementById('redSlider');
+let sld_Green = document.getElementById('greenSlider');
+let sld_Blue = document.getElementById('blueSlider');
+
+sld_Red.oninput = sld_Red_Change;
+sld_Green.oninput = sld_Green_Change;
+sld_Blue.oninput = sld_Blue_Change;
 
 // botoes de adicionar e remover ponto
 let btn_AdicionarPonto =  document.getElementById('addPoint');
@@ -50,7 +60,6 @@ btn_DeletarCurva.onclick = deletar_curva;
 
 btn_AdicionarPonto.onclick = adicionar_ponto;
 btn_DeletarPonto.onclick = deletar_ponto;
-
 
 box_PontosControle.onchange = TogglePontosControle;
 box_PoligonaisControle.onchange = TogglePoligonaisControle;
@@ -166,7 +175,9 @@ class Curva{
     this.pontos_avaliacao = [];
     this.pontos_controle = [];
 
-    this.cor = 0;
+    this.cor_red = 0;
+    this.cor_green = 0;
+    this.cor_blue = 0;
 
     this.selecionada = false;
   }
@@ -177,7 +188,8 @@ class Curva{
 
   display_curva(){
     strokeWeight(2);
-    stroke(this.cor);
+    let c = color(this.cor_red, this.cor_green, this.cor_blue);
+    stroke(c);
     if(this.selecionada)
       stroke(118);
     for(x = 0; x < this.pontos_avaliacao.length - 1; x++){
@@ -278,7 +290,7 @@ function criar_curva(){
     }
   }else{
     pontos_controle = [];
-    btn_CriarCurva.style.backgroundColor = 'red';
+    btn_CriarCurva.style.backgroundColor = '#93dbd6';
   }
 }
 
@@ -288,6 +300,9 @@ function selecionar_curva(){
   if(pontos_controle)
     return;
   if(curva_selecionada != undefined){
+    sld_Green.value = 0;
+    sld_Blue.value = 0;
+    sld_Red.value = 0;
     if(adicionando_ponto){
       adicionando_ponto = false;
       btn_AdicionarPonto.style.backgroundColor = 'white';
@@ -305,7 +320,7 @@ function selecionar_curva(){
   }
   if(!selecionando_curva){
     selecionando_curva = true;
-    btn_SelecionarCurva.style.backgroundColor = 'red';
+    btn_SelecionarCurva.style.backgroundColor = '#93dbd6';
     btn_SelecionarCurva.innerText = 'Cancelar';
   }else{
     selecionando_curva = false;
@@ -338,7 +353,7 @@ function adicionar_ponto(){
   }
   if(pontos_controle == undefined && !selecionando_curva){
     adicionando_ponto = true;
-    btn_AdicionarPonto.style.backgroundColor = 'red';
+    btn_AdicionarPonto.style.backgroundColor = '#93dbd6';
     btn_AdicionarPonto.innerText = 'Cancelar';
   }
 }
@@ -409,8 +424,12 @@ function procurar_curva(){
 
         selecionando_curva = false;
 
-        btn_SelecionarCurva.style.backgroundColor = 'blue';
-        btn_SelecionarCurva.innerText = 'Desselecionar'
+        btn_SelecionarCurva.style.backgroundColor = '#79a9ec';
+        btn_SelecionarCurva.innerText = 'Desselecionar';
+
+        sld_Red.value = c.cor_red;
+        sld_Green.value = c.cor_green;
+        sld_Blue.value = c.cor_blue;
 
         return;
       }
@@ -422,8 +441,12 @@ function procurar_curva(){
 
         selecionando_curva = false;
 
-        btn_SelecionarCurva.style.backgroundColor = 'blue';
-        btn_SelecionarCurva.innerText = 'Desselecionar'
+        btn_SelecionarCurva.style.backgroundColor = '#79a9ec';
+        btn_SelecionarCurva.innerText = 'Desselecionar';
+
+        sld_Red.value = curvas[c].cor_red;
+        sld_Green.value = curvas[c].cor_green;
+        sld_Blue.value = curvas[c].cor_blue;
       }
     }
   }
@@ -435,3 +458,30 @@ function mouse_in_canvas(){
   return false;
 }
 
+//Coloridinhas funções
+function sld_Red_Change(){
+  if(curva_selecionada != undefined){
+    curvas[curva_selecionada].cor_red = sld_Red.value;
+  }else{
+    sld_Red.style.cursor = "default";
+    sld_Red.value = 0;
+  }
+}
+
+function sld_Green_Change(){
+  if(curva_selecionada != undefined){
+    curvas[curva_selecionada].cor_green = sld_Green.value;
+  }else{
+    sld_Green.style.cursor = "default";
+    sld_Green.value = 0;
+  }
+}
+
+function sld_Blue_Change(){
+  if(curva_selecionada != undefined){
+    curvas[curva_selecionada].cor_blue = sld_Blue.value;
+  }else{
+    sld_Blue.style.cursor = "default";
+    sld_Blue.value = 0;
+  }
+}
