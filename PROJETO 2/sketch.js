@@ -39,6 +39,7 @@ let sld_Red = document.getElementById('redSlider');
 let sld_Green = document.getElementById('greenSlider');
 let sld_Blue = document.getElementById('blueSlider');
 
+// COLORIDINHOOOOOOOO
 sld_Red.oninput = sld_Red_Change;
 sld_Green.oninput = sld_Green_Change;
 sld_Blue.oninput = sld_Blue_Change;
@@ -285,12 +286,16 @@ function criar_curva(){
       curvas.push(Generate(pontos_controle));
       pontos_controle = undefined;
       btn_CriarCurva.style.backgroundColor = 'white';
+      btn_CriarCurva.innerText = 'Criar Curva';
     }else{
-      return;
+      pontos_controle = undefined;
+      btn_CriarCurva.style.backgroundColor = 'white';
+      btn_CriarCurva.innerText = 'Criar Curva';
     }
   }else{
     pontos_controle = [];
     btn_CriarCurva.style.backgroundColor = '#93dbd6';
+    btn_CriarCurva.innerText = 'Finalizar';
   }
 }
 
