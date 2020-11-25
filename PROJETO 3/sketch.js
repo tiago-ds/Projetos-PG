@@ -8,6 +8,8 @@ let charselect;
 
 let vetor;
 
+let locZ = 100;
+
 img_d = charselect + '/char_d.png';
 img_n = charselect + '/char_n.png';
 img_s = charselect + '/char_s.png';
@@ -21,17 +23,15 @@ function setup() {
 
 function draw() {
   background(255);
+  
+  
 
   if(img){
-    vetor.x = mouseX - img.width / 2;
-    vetor.y = mouseY - img.height / 2;
-    vetor.z = 100;
-
-    line(0, 0, 100, vetor.x, vetor.y, vetor.z);
-
-    let locX = mouseX - img.width / 2;
-    let locY = mouseY - img.height / 2;
-    pointLight(255, 255, 255, locX, locY, 100);
+    let mX = map(mouseX, 0, width, -width / 2, img.width);
+    let mY = map(mouseY, 0, height, -height / 2, img.height);
+    let locX = - width / 2;
+    let locY = - height / 2;
+    pointLight(255, 255, 255, mX, mY, locZ);
 
 
     push();
@@ -39,7 +39,6 @@ function draw() {
     noStroke();
     rect(- width / 2, - height / 2, img.width, img.height);
     pop();
-
   }
 }
 
@@ -57,4 +56,27 @@ function select_char2(){
 
 function loadChar(){
   img = loadImage(img_n);
+}
+
+
+// "zoom in e zoom out"
+function mouseWheel(event) {
+  
+  // Ele só diminuirá o Z da luz se ele for maior que 0
+  if(event.delta < 0){
+    if(locZ > 0)
+      locZ += event.delta/10;
+  }
+
+  // De forma similar, ele só aumentará o Z da luz se ele for menor que 500
+  else{
+    if(locZ < 500)
+      locZ += event.delta/10;
+  }
+  // Desabilita o Scroll da página.
+  return false;
+}
+
+function mouseClicked(){
+  console.log(mouseX);
 }
