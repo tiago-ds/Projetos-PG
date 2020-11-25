@@ -8,6 +8,7 @@ let charselect;
 
 let vetor;
 
+// "Zoom in e Out"
 let locZ = 100;
 
 img_d = charselect + '/char_d.png';
@@ -27,11 +28,19 @@ function draw() {
   
 
   if(img){
+    //Mapeia o valor do mouse entre 0 e O tamanho da imagem, para que a luz o siga.
     let mX = map(mouseX, 0, width, -width / 2, img.width);
-    let mY = map(mouseY, 0, height, -height / 2, img.height);
-    let locX = - width / 2;
-    let locY = - height / 2;
-    pointLight(255, 255, 255, mX, mY, locZ);
+    let mY = map(mouseY, 0, height, -height / 2, img.height / 2);
+    
+    let light_vector = new createVector(mX, mY, locZ);
+
+    line(-img.width / 2, 0, 0, light_vector.x, light_vector.y, light_vector.z);
+
+    //WIP
+    //let locX = - width / 2;
+    //let locY = - height / 2;
+
+    pointLight(255, 255, 255, light_vector);
 
 
     push();
@@ -78,5 +87,5 @@ function mouseWheel(event) {
 }
 
 function mouseClicked(){
-  console.log(mouseX);
+  console.log(-img.width/2, -img.height/2);
 }
