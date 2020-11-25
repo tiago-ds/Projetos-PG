@@ -22,23 +22,24 @@ function setup() {
 function draw() {
   background(255);
 
-  vetor.x = mouseX - width / 2;
-  vetor.y = mouseY - height / 2;
-  vetor.z = 100;
-
-  line(0, 0, 100, vetor.x, vetor.y, vetor.z);
-
-  let locX = mouseX - width / 2;
-  let locY = mouseY - height / 2;
-  pointLight(50, 10, 250, locX, locY, 100);
-
-
-
   if(img){
+    vetor.x = mouseX - img.width / 2;
+    vetor.y = mouseY - img.height / 2;
+    vetor.z = 100;
+
+    line(0, 0, 100, vetor.x, vetor.y, vetor.z);
+
+    let locX = mouseX - img.width / 2;
+    let locY = mouseY - img.height / 2;
+    pointLight(255, 255, 255, locX, locY, 100);
+
+
     push();
     texture(img);
-    rect(- width / 2, - height / 2, 500);
+    noStroke();
+    rect(- width / 2, - height / 2, img.width, img.height);
     pop();
+
   }
 }
 
