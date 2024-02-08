@@ -18,7 +18,7 @@ function setup() {
 }
 
 function draw() {
-  background(25, 70, 180);
+  background(245, 245, 220);
   bracinho.update();
 }
 

@@ -32,7 +32,7 @@ function setup() {
   
   // Cria canvas
   createCanvas(WIDTH, HEIGHT);
-  background(100);
+  background(245, 245, 220);
   
   // Cria o ponto de início
   pontinho = new Ponto();

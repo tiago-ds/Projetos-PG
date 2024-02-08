@@ -2,8 +2,8 @@
 let bolinha; 
 
 // Constantes para definir velocidade
-const WIDTH = 1000;
-const HEIGHT = 1000;
+const WIDTH = 800;
+const HEIGHT = 800;
 const FRAMERATE = 60;
 
 // Variável para medir o tempo do trajeto
@@ -24,7 +24,7 @@ function setup() {
 }
 
 function draw() {
-  background(118);
+  background(245, 245, 220);
   
   // Chama os métodos da bolinha
   bolinha.update();

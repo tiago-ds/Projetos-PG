@@ -1,6 +1,6 @@
 let circulo
-let WIDTH = 500
-let HEIGHT = 500
+let WIDTH = 800
+let HEIGHT = 800
 let startDate = new Date()
 
 
@@ -11,7 +11,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(245, 245, 220);
   circulo.update()
 }
 

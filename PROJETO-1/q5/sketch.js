@@ -19,14 +19,13 @@ let bRaio = 100;
 let lRaio = bRaio/4;
 
 function setup() {
-  createCanvas(1000, 1000, WEBGL);
+  createCanvas(800, 800, WEBGL);
   angleMode(DEGREES);
-  background(220);
   perspective();
 }
 
 function draw() {
-  background(255);
+  background(245, 245, 220);
 
   // Desenha linhas dos eixos
   desenhaSetup();
