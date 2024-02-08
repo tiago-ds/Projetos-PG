@@ -72,7 +72,7 @@ sld_Blue.oninput = sld_Blue_Change;
 
 function setup() {
   createCanvas(WIDTH, HEIGHT);
-  BGC1 = color(183, 206, 232);
+  BGC1 = color(215, 215, 128);
   BGC2 = color(247, 247, 247);
 }
 
@@ -330,7 +330,7 @@ function criar_curva(){
   // Começando a criar uma curva.
   else{
     pontos_controle = [];
-    btn_CriarCurva.style.backgroundColor = '#93dbd6';
+    btn_CriarCurva.style.backgroundColor = '#8080D7';
     btn_CriarCurva.innerText = 'Finalizar';
   }
 }
@@ -363,7 +363,7 @@ function selecionar_curva(){
   // Começar a seleção da curva
   if(!selecionando_curva){
     selecionando_curva = true;
-    btn_SelecionarCurva.style.backgroundColor = '#93dbd6';
+    btn_SelecionarCurva.style.backgroundColor = '#8080D7';
     btn_SelecionarCurva.innerText = 'Cancelar';
   }
   // Cancelar a seleção
@@ -402,7 +402,7 @@ function adicionar_ponto(){
   // Começar a adição de ponto (caso não esteja em outros estados)
   if(pontos_controle == undefined && !selecionando_curva){
     adicionando_ponto = true;
-    btn_AdicionarPonto.style.backgroundColor = '#93dbd6';
+    btn_AdicionarPonto.style.backgroundColor = '#8080D7';
     btn_AdicionarPonto.innerText = 'Cancelar';
   }
 }
@@ -465,7 +465,7 @@ function procurar_curva(){
 
         selecionando_curva = false;
 
-        btn_SelecionarCurva.style.backgroundColor = '#79a9ec';
+        btn_SelecionarCurva.style.backgroundColor = '#AC73D2';
         btn_SelecionarCurva.innerText = 'Desselecionar';
 
         sld_Red.value = c.cor_red;
@@ -483,7 +483,7 @@ function procurar_curva(){
 
         selecionando_curva = false;
 
-        btn_SelecionarCurva.style.backgroundColor = '#79a9ec';
+        btn_SelecionarCurva.style.backgroundColor = '#AC73D2';
         btn_SelecionarCurva.innerText = 'Desselecionar';
 
         sld_Red.value = curvas[c].cor_red;

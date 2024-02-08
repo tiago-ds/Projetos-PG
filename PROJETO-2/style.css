@@ -25,14 +25,14 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color:#ffffff7c;
+  background-color:#F5F5DC;
   transition: background-color 0.5s ease;
 }
 
 input[type=number] {
   font-family: inherit;
   border: none;
-  border-bottom: solid 2px #40bfb7;
+  border-bottom: solid 2px #8080D7;
   background-color: transparent;
   width: 62%;
   transition: width 0.5s ease-in-out;
@@ -97,7 +97,7 @@ label {
 .canvas {
   width: 1000px;
   height: 650px;
-  background-image: linear-gradient( #b7cee8, #f7f7f7);
+  background-image: linear-gradient( #D7D780, #f7f7f7);
   box-shadow: 0.5em 0.5em 0.5em rgba(95,94,94,.12);
   z-index: -10;
 }
@@ -106,7 +106,7 @@ label {
   padding-left: 1em;
   width: 200px;
   height: 650px;
-  background-image: linear-gradient( #b7cee8, #f7f7f7);
+  background-image: linear-gradient( #D7D780, #f7f7f7);
   box-shadow: 0.5em 0.5em 0.5em rgba(95,94,94,.12);
 }
 
@@ -184,4 +184,34 @@ label {
 
 #blueSlider::-moz-range-thumb{
   background-color: blue;
+}
+
+.header {
+  width: 1216px;
+  background-color: #D7D780;
+  display: flex;
+}
+
+h1 {
+  padding: 10px;
+  margin: 0 0 0 6px;
+}
+
+.left-arrow {
+  padding-left: 15px;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+}
+
+.arrow {
+  display: inline-block;
+
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  padding: 3px;
+  
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
